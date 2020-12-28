@@ -1,12 +1,24 @@
 <template>
   <h2 class="no-concepts" v-if="hasConcepts && concepts.length === 0">No concepts found.</h2>
-  <Draggable
+
+  <!-- Show if filtering -->
+  <div class="grid page-container" v-if="!canDrag">
+    <ConceptGridItem
+      v-for="concept in concepts"
+      :concept="concept" 
+      :key="concept.createdAt"
+      @deleteConcept="handleDeleteClick"
+    />
+  </div>
+
+  <!-- Show if filtering -->
+  <Draggable v-if="canDrag"
     class="grid page-container"
     v-model="allConcepts"
     tag="transition-group"
     :component-data="{ tag: 'div', type: 'transition', name: 'animate-dnd' }"
     item-key="createdAt"
-    :disabled="canDrag"
+    :disabled="!canDrag"
   >
     <template #item="{ element }">
       <ConceptGridItem

@@ -51,7 +51,7 @@ export default {
     });
 
     const canDrag = computed(function () {
-      return searchText.value.trim() !== "";
+      return searchText.value.trim() === "";
     });
 
     const hasConcepts = computed(function () {
