@@ -85,7 +85,7 @@ export default {
   padding: 2rem 1.1rem;
   position: relative;
   width: 100vw;
-  max-width: 80rem;
+  max-width: 100rem;
 
   @include respond(tab-port) {
     width: 100%;
@@ -93,7 +93,7 @@ export default {
 
   @include respond(tab-land) {
     margin-top: $spacing-large;
-    padding: $spacing-large;
+    padding: 5rem 2.5rem 3rem 2.5rem;
   }
 }
 
@@ -105,8 +105,8 @@ export default {
   color: $color-grey-dark;
   font-size: $font-size-normal;
   position: absolute;
-  top: 1rem;
-  left: 1rem;
+  top: 0.5em;
+  left: 0.5em;
 
   @include respond(tab-land) {
     font-size: $font-size-medium;
@@ -135,13 +135,14 @@ export default {
 .text {
   background: transparent;
   color: $color-grey-lightest;
-  font-size: $font-size-normal;
-  padding: 0.75em;
+  padding: 0.4em 0.6em;
   margin-top: $spacing-medium;
   overflow: hidden;
+  min-height: 4em;
 
   @include respond(tab-land) {
-    font-size: $font-size-medium;
+    font-size: $font-size-normal-big;
+    min-height: 6.6em;
   }
 
   &:focus,
@@ -156,13 +157,11 @@ export default {
   font-size: 2rem;
 
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 0.5em;
+  right: 0.5em;
 
   &:hover {
     color: $color-red;
-    top: 2rem;
-    right: 2rem;
   }
 
   @include respond(tab-land) {
