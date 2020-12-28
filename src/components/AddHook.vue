@@ -177,7 +177,7 @@ export default {
   max-width: 100rem;
 
   @include respond(tab-land) {
-    font-size: $font-size-large;
+    font-size: $font-size-medium;
     min-height: 50rem;
     padding: 2rem;
   }
