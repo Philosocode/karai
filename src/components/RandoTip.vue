@@ -1,13 +1,13 @@
 <template>
-  <Dialog title="Rando Tip" :show="modalShowing" @close="toggleModal">
-    <i class="refresh fas fa-redo" @click="refreshHook" />
-    <p class="hook-text">{{ currentHook }}</p>
-  </Dialog>
   <i
     class="nav-icon fas fa-lightbulb"
     :class="modalShowing && 'is-active'"
     @click="toggleModal"
   />
+  <Dialog title="Rando Tip" :show="modalShowing" @close="toggleModal">
+    <i class="refresh fas fa-redo" @click="refreshHook" />
+    <p class="hook-text">{{ currentHook }}</p>
+  </Dialog>
 </template>
 
 <script>
@@ -56,7 +56,8 @@ i {
   position: absolute;
     top: 0;
     left: 0;
-  transform: translate(11rem, 2.9rem);
+  transform: translate(10.5rem, 2.9rem);
+  width: max-content;
 
   @include respond(tab-port) {
     transform: translate(13.5rem, 3.2rem);
@@ -76,14 +77,10 @@ i {
   background-color: $color-grey-darkest;
   color: $color-grey-lighter;
   font-weight: 500;
-  font-size: $font-size-small;
+  font-size: $font-size-normal;
   margin-bottom: 0;
   padding: $spacing-small $spacing-small;
   width: max-content;
   max-width: 100%;
-
-  @include respond(tab-land) {
-    font-size: $font-size-normal;
-  }
 }
 </style>

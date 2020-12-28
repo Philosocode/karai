@@ -58,14 +58,18 @@ dialog {
   background: $color-off-black;
   position: fixed;
   top: 20vh;
-  left: 10%;
+  left: 0%;
   border-radius: 2px;
   border: none;
-  padding: $spacing-medium;
+  padding: $spacing-medium 1.5rem;
   margin: 0;
   overflow: hidden;
   z-index: 100;
-  width: 80%;
+  width: 100%;
+
+  @include respond(tab-land) {
+    padding: $spacing-medium;
+  }
 }
 
 .modal-title {

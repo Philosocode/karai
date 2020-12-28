@@ -82,10 +82,14 @@ export default {
   display: flex;
   flex-direction: column;
   margin-top: $spacing-medium;
-  padding: 2rem 1rem;
+  padding: 2rem 1.1rem;
   position: relative;
-  width: 100%;
+  width: 100vw;
   max-width: 80rem;
+
+  @include respond(tab-port) {
+    width: 100%;
+  }
 
   @include respond(tab-land) {
     margin-top: $spacing-large;
