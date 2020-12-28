@@ -25,7 +25,7 @@ export default {
     Filters,
   },
   setup() {
-    document.title = "Karai - Concepts";
+    document.title = "Karai「花蕾」- Concepts";
 
     const store = useStore();
 

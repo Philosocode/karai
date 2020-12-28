@@ -37,7 +37,7 @@ export default {
     } else {
       this.$store.dispatch("setCurrConcept", currConcept);
       this.concept = currConcept;
-      document.title = "Karai - " + currConcept.name;
+      document.title = "Karai「花蕾」- " + currConcept.name;
     }
   },
   beforeUnmount() {
