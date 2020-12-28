@@ -50,11 +50,22 @@ i {
 }
 
 .refresh {
-  cursor: pointer;
-  font-size: 2rem;
+  cursor: pointer;  
   color: $color-green;
+  font-size: 1.6rem;
   position: absolute;
-  transform: translate(11rem, -2.8rem);
+    top: 0;
+    left: 0;
+  transform: translate(11rem, 2.9rem);
+
+  @include respond(tab-port) {
+    transform: translate(13.5rem, 3.2rem);
+  }
+
+  @include respond(tab-land) {
+    font-size: 2rem;
+    transform: translate(16rem, 3.3rem);
+  }
 
   &:hover {
     color: $color-green-light;
