@@ -47,6 +47,10 @@ export default {
   text-decoration: none;
   width: 100%;
   max-width: 25rem;
+
+  @include respond(tab-land) {
+    margin-top: $spacing-large;
+  }
 }
 
 .concept-name {
