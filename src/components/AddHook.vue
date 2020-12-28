@@ -47,10 +47,8 @@ export default {
     };
   },
   mounted() {
-    this.getUnusedHook();
-
     this.$nextTick(() => {
-      this.$refs.textareaRef.focus();
+      this.$refs.inputRef.focus();
     });
   },
   methods: {
@@ -132,7 +130,7 @@ form {
     position: absolute;
       left: 0;
       top: 0;
-    transform: translate(-3.3rem, -2px);
+    transform: translate(-3.3rem, 1px);
   }
 }
 
