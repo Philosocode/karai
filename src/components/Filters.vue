@@ -93,6 +93,7 @@ export default {
 
   &:active,
   &:focus {
+    border-bottom: 1px solid $color-grey-dark;
     outline: none;
   }
 }

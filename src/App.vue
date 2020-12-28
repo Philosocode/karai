@@ -88,6 +88,7 @@ body {
   &:active,
   &:focus {
     outline: none;
+    border-bottom: 1px solid $color-grey;
   }
 }
 
@@ -111,7 +112,7 @@ body {
   }
 
   &:hover {
-    border-color: $color-grey-dark;
+    border-color: $color-grey;
     color: $color-grey-lightest;
   }
 

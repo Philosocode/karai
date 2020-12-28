@@ -1,45 +1,37 @@
 <template>
   <form @submit.prevent="handleSubmit">
     <div class="hook-container">
-      <p class="hook-text">{{ hook }}</p>
+      <input
+        class="hook-text"
+        v-model="hook"
+        ref="inputRef"
+        @input="resizeInput(hook)"
+        @focus="resizeInput(hook)"
+        placeholder="Hook Name"
+      />
       <div class="icons">
-        <i class="refresh icon fas fa-redo" @click="getUnusedHook" />
-        <i class="edit icon fas fa-edit" @click="showModal" />
+        <i class="icon fas fa-redo" @click="getUnusedHook" />
       </div>
     </div>
     <textarea
       class="hook-textarea"
       v-model="text"
+      ref="textareaRef"
       @focus="autosizeTextarea"
       @input="autosizeTextarea"
+      placeholder="Type something..."
     />
     <button
       type="submit"
       class="modal-button hook-submit"
-      :disabled="text.trim() === ''"
+      :disabled="text.trim() === '' || hook.trim() === ''"
     >
       Create
     </button>
   </form>
-  <Dialog :show="modalShowing" title="Change Hook Name" @close="hideModal">
-    <form @submit.prevent="handleHookChange">
-      <textarea
-        class="modal-input"
-        v-model="hookInputText"
-        @focus="autosizeTextarea"
-        @input="autosizeTextarea"
-        @keydown.esc="hideModal"
-        rows="1"
-        required
-      />
-      <button class="modal-button" :disabled="buttonIsDisabled">Change</button>
-    </form>
-  </Dialog>
 </template>
 
 <script>
-import Dialog from "./Dialog";
-
 import getRandomHook from "../mixins/randomHookMixin";
 import autosizeTextarea from "../mixins/autosizeTextareaMixin";
 
@@ -47,31 +39,34 @@ export default {
   name: "AddHook",
   props: ["concept"],
   mixins: [getRandomHook, autosizeTextarea],
-  components: { Dialog },
   data() {
     return {
       hook: "",
-      hookInputText: "",
       text: "",
       modalShowing: false,
     };
   },
-  computed: {
-    buttonIsDisabled() {
-      return this.hookInputText.trim() === "";
-    },
-  },
-  created() {
+  mounted() {
     this.getUnusedHook();
+
+    this.$nextTick(() => {
+      this.$refs.textareaRef.focus();
+    });
   },
   methods: {
     getUnusedHook() {
       let newHook;
       do {
         newHook = this.getRandomHook();
-      } while (this.hook === newHook || this.concept.hooks.includes(newHook));
+      } while (
+        this.hook.toLowerCase() === newHook.toLowerCase() ||
+        this.concept.hooks.some((conceptHook) => {
+          return conceptHook.name.toLowerCase() === newHook.toLowerCase();
+        })
+      );
 
       this.hook = newHook;
+      this.resizeInput(newHook);
     },
     toggleModal() {
       this.modalShowing = !this.modalShowing;
@@ -88,6 +83,13 @@ export default {
 
       this.hook = this.hookInputText;
       this.hideModal();
+    },
+    resizeInput(val = this.hook) {
+      const inputRef = this.$refs.inputRef;
+      inputRef.value = val;
+
+      inputRef.style.width = "auto";
+      inputRef.style.width = inputRef.scrollWidth + "px";
     },
     handleSubmit() {
       if (!this.text) return;
@@ -108,12 +110,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+form {
+  max-width: 100rem;
+  width: 100%;
+}
+
 .hook-container {
   position: relative;
-  width: max-content;
 
-  &:hover .icons {
-    visibility: visible;
+  @include respond(tab-land) {
+    margin-bottom: $spacing-medium;
   }
 }
 
@@ -123,7 +129,10 @@ export default {
   visibility: visible;
 
   @include respond(tab-land) {
-    visibility: hidden;
+    position: absolute;
+      left: 0;
+      top: 0;
+    transform: translate(-3.3rem, -2px);
   }
 }
 
@@ -135,8 +144,7 @@ export default {
   padding-bottom: 1.5rem;
 
   @include respond(tab-land) {
-    font-size: $font-size-large;
-    padding-bottom: $spacing-medium;
+    font-size: $font-size-medium;
   }
 
   &:hover {
@@ -144,24 +152,27 @@ export default {
   }
 }
 
-.edit {
-  transform: translateY(-2px);
-}
-
 .hook-text {
-  background: $color-grey-darkest;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid $color-grey-darkest;
   color: $color-grey-lightest;
-  font-size: $font-size-medium;
+  font-size: $font-size-small;
   font-weight: 500;
   margin: 0;
-  padding: 1.5rem;
-  font-size: $font-size-small;
+  margin-top: $spacing-small;
+  padding-bottom: $spacing-smallest;
   width: max-content;
-  max-width: 90vw;
+  max-width: 100%;
 
   @include respond(tab-land) {
-    font-size: $font-size-normal;
-    padding: 2rem;
+    font-size: $font-size-normal-big;
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+    border-color: $color-grey;
   }
 }
 
@@ -174,7 +185,6 @@ export default {
   overflow: hidden;
   padding: 1.3rem 1rem;
   width: 100%;
-  max-width: 100rem;
 
   @include respond(tab-land) {
     font-size: $font-size-medium;
@@ -185,6 +195,7 @@ export default {
   &:active,
   &:focus {
     outline: none;
+    border-color: $color-grey;
   }
 }
 

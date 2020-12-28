@@ -129,11 +129,13 @@ export default {
   &:focus,
   &:active {
     outline: none;
+    border-bottom: 1px solid $color-grey-dark;
   }
 }
 
 .text {
   background: transparent;
+  border: 1px solid $color-grey-darkest;
   color: $color-grey-lightest;
   padding: 0.4em 0.6em;
   margin-top: $spacing-medium;

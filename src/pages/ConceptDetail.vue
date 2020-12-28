@@ -48,15 +48,18 @@ export default {
 <style lang="scss" scoped>
 .breadcrumbs {
   color: $color-grey;
-  font-weight: 500;
-  font-size: $font-size-small;
+  font-size: $font-size-smallest;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 
   & > a {
     color: $color-green;
+    text-decoration: none;
   }
 
   @include respond(tab-port) {
-    font-size: $font-size-normal;
+    font-size: $font-size-small;
   }
 }
 

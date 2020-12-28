@@ -78,10 +78,9 @@ export default {
     bottom: 2px;
     left: 0.5rem;
     
-
   @include respond(tab-land) {
     display: none;
-    bottom: 4px;
+    bottom: 4.6px;
     left: 1.3rem;
   }
 
