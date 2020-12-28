@@ -3,7 +3,12 @@
     <div class="backdrop" v-if="show" @click="closeModal" />
 
     <transition name="dialog">
-      <dialog open v-if="show" @keypress.esc="closeModal">
+      <dialog
+        :class="long ? 'is-long' : ''"
+        open
+        v-if="show"
+        @keypress.esc="closeModal"
+      >
         <h2 class="modal-title">{{ title }}</h2>
         <slot />
         <i
@@ -20,7 +25,7 @@
 <script>
 export default {
   name: "Dialog",
-  props: ["show", "title"],
+  props: ["show", "title", "long"],
   emits: ["close"],
   methods: {
     closeModal() {
@@ -46,8 +51,8 @@ export default {
   cursor: pointer;
   font-size: 1.8rem;
   position: absolute;
-    top: 0.6em;
-    right: 0.6em;
+  top: 0.6em;
+  right: 0.6em;
 
   @include respond(tab-land) {
     font-size: 2.4rem;
@@ -69,6 +74,16 @@ dialog {
 
   @include respond(tab-land) {
     padding: $spacing-medium;
+  }
+
+  @media (min-width: 500px) {
+    left: calc(50% - 20rem);
+    width: 40rem;
+
+    &.is-long {
+      left: calc(50% - 25rem);
+      width: 50rem;
+    }
   }
 }
 
@@ -104,12 +119,5 @@ dialog {
 .dialog-leave-from {
   opacity: 1;
   transform: scale(1);
-}
-
-@media (min-width: 500px) {
-  dialog {
-    left: calc(50% - 20rem);
-    width: 40rem;
-  }
 }
 </style>

@@ -3,10 +3,13 @@ export default {
     return state.concepts;
   },
   currConcept(state) {
-    return state.concepts.find(state.currConcept);
+    return state.currConcept;
   },
   hasConcepts(state) {
     return state.concepts.length > 0;
+  },
+  hasHooks(state) {
+    return state.currConcept.hooks.length > 0;
   },
   hooks(state) {
     return state.hooks;

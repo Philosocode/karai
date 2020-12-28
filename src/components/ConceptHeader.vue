@@ -8,7 +8,9 @@
   <Dialog :show="modalShowing" title="Change Concept Name" @close="toggleModal">
     <form @submit.prevent="handleSubmit">
       <input class="modal-input" v-model="newName" required />
-      <button class="modal-button">Change Name</button>
+      <button class="modal-button" :disabled="newName.trim() === ''">
+        Change Name
+      </button>
     </form>
   </Dialog>
 </template>
@@ -31,10 +33,7 @@ export default {
       this.modalShowing = !this.modalShowing;
     },
     handleSubmit() {
-      this.$store.dispatch("changeConceptName", {
-        id: this.concept.createdAt,
-        name: this.newName,
-      });
+      this.$store.dispatch("changeConceptName", this.newName);
 
       this.toggleModal();
     },
@@ -75,9 +74,9 @@ export default {
   cursor: pointer;
   font-size: 2rem;
   position: relative;
-    bottom: 2px;
-    left: 0.5rem;
-    
+  bottom: 2px;
+  left: 0.5rem;
+
   @include respond(tab-land) {
     display: none;
     bottom: 4.6px;

@@ -15,8 +15,7 @@ export default createStore({
   state: {
     hooks,
     concepts: [],
-    currConcept: "",
-    error: "",
+    currConcept: undefined,
   },
   mutations,
   actions,

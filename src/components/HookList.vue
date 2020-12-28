@@ -86,9 +86,13 @@ export default {
 .heading {
   color: $color-grey-lightest;
   font-weight: 500;
-  font-size: $font-size-large;
+  font-size: $font-size-medium;
   text-align: center;
-  margin-bottom: 0;
+  margin-bottom: $spacing-smallest;
+
+  @include respond(tab-land) {
+    font-size: $font-size-large;
+  }
 }
 
 .hooks {

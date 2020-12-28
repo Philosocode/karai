@@ -13,17 +13,15 @@ const routes = [
     name: "Concept Detail",
     props: true,
     component: () =>
-      import(/* webpackChunkName: "about" */ "../pages/ConceptDetail.vue"),
-  },
-  {
-    path: "/:notFound(.*)",
-    component: () => import("../pages/NotFound.vue"),
+      import(
+        /* webpackChunkName: "conceptDetail" */ "../pages/ConceptDetail.vue"
+      ),
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  base: "/",
+  base: "/karai",
   routes,
 });
 

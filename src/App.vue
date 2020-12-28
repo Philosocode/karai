@@ -4,7 +4,7 @@
       <Logo class="logo" />
     </router-link>
     <RandoTip />
-    <DeleteAllConcepts />
+    <DeleteAll />
   </div>
 
   <div class="site-content">
@@ -14,15 +14,14 @@
 </template>
 
 <script>
-import DeleteAllConcepts from "./components/DeleteAllConcepts";
+import DeleteAll from "./components/DeleteAll";
 import Footer from "./components/Footer";
 import Logo from "./components/Logo";
 import RandoTip from "./components/RandoTip.vue";
 
 export default {
   name: "App",
-  components: { DeleteAllConcepts, Footer, Logo, RandoTip },
-  
+  components: { DeleteAll, Footer, Logo, RandoTip },
 };
 </script>
 
@@ -73,16 +72,14 @@ body {
   color: $color-grey-lightest;
   margin-top: $spacing-small;
   font-size: $font-size-small;
-  padding-bottom: $spacing-smallest;
+  padding-bottom: 0.4rem;
   overflow: hidden;
   width: 100%;
 
   @include respond(tab-land) {
+    font-size: $font-size-normal-big;
     margin-top: $spacing-medium;
-  }
-
-  @include respond(tab-land) {
-    font-size: 1.8rem;
+    padding-bottom: $spacing-smallest;
   }
 
   &:active,
@@ -102,7 +99,7 @@ body {
   font-weight: 600;
   letter-spacing: 2px;
   padding: 1em 2em;
-  margin-top: $spacing-small;
+  margin-top: 1.8rem;
   text-transform: uppercase;
   transition: all 0.2s ease-in-out;
 
@@ -118,7 +115,7 @@ body {
 
   &:active,
   &:focus {
-    outline: 1px solid $color-grey-dark;
+    outline: 1px solid $color-grey;
   }
 
   &:disabled {

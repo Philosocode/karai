@@ -4,7 +4,7 @@
     :class="modalShowing && 'is-active'"
     @click="toggleModal"
   />
-  <Dialog title="Rando Tip" :show="modalShowing" @close="toggleModal">
+  <Dialog title="Rando Tip" :show="modalShowing" @close="toggleModal" :long="true">
     <i class="refresh fas fa-redo" @click="refreshHook" />
     <p class="hook-text">{{ currentHook }}</p>
   </Dialog>
@@ -82,5 +82,9 @@ i {
   padding: $spacing-small $spacing-small;
   width: max-content;
   max-width: 100%;
+
+  @include respond(tab-land) {
+    font-size: $font-size-normal-big;
+  }
 }
 </style>

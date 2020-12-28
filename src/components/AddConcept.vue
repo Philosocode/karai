@@ -6,10 +6,13 @@
         type="text"
         v-model="conceptName"
         placeholder="Concept Name"
+        @keydown.esc="closeModal"
         required
       />
       <p v-if="error">{{ error }}</p>
-      <button class="modal-button" type="submit">Create</button>
+      <button class="modal-button" :disabled="conceptName.trim() === ''">
+        Create
+      </button>
     </form>
   </Dialog>
 </template>

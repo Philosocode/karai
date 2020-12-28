@@ -2,7 +2,7 @@
   <h2 class="no-concepts" v-if="hasConcepts && concepts.length === 0">No concepts found.</h2>
   <Draggable
     class="grid page-container"
-    v-model="concepts"
+    v-model="allConcepts"
     tag="transition-group"
     :component-data="{ tag: 'div', type: 'transition', name: 'animate-dnd' }"
     item-key="createdAt"
@@ -47,6 +47,14 @@ export default {
     hasConcepts() {
       return this.$store.getters.hasConcepts;
     },
+    allConcepts: {
+      get() {
+        return this.$store.getters.concepts;
+      },
+      set(newVal) {
+        this.$store.dispatch("setConcepts", newVal);
+      }
+    }
   },
   methods: {
     toggleModal() {

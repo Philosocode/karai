@@ -1,5 +1,4 @@
 <template>
-  <Title :title="`Karai - ${concept.name}`" />
   <div class="page-container">
     <div class="breadcrumbs">
       <router-link to="/">Home</router-link> / <span>{{ concept.name }}</span>
@@ -18,11 +17,10 @@
 import AddHook from "../components/AddHook";
 import ConceptHeader from "../components/ConceptHeader";
 import HookList from "../components/HookList";
-import Title from "../components/Title";
 
 export default {
   name: "ConceptDetail",
-  components: { AddHook, ConceptHeader, HookList, Title },
+  components: { AddHook, ConceptHeader, HookList },
   props: ["id"],
   data() {
     return {
@@ -30,18 +28,21 @@ export default {
     };
   },
   created() {
-    const currConcept = this.$store.getters.concepts.find(
-      (c) => c.createdAt === Number(this.id)
-    );
+    const concepts = this.$store.getters.concepts;
+    const currConcept = concepts.find(c => c.createdAt === Number(this.id));
 
     if (!currConcept) {
       alert("ERROR: Failed to find concept with that ID.");
       this.$router.push("/");
     } else {
+      this.$store.dispatch("setCurrConcept", currConcept);
       this.concept = currConcept;
-      this.newConceptName = currConcept.name;
+      document.title = "Karai - " + currConcept.name;
     }
   },
+  beforeUnmount() {
+    this.$store.dispatch("setCurrConcept", undefined);
+  }
 };
 </script>
 
@@ -56,6 +57,11 @@ export default {
   & > a {
     color: $color-green;
     text-decoration: none;
+
+    &:hover {
+      color: $color-green-light;
+      text-decoration: underline;
+    }
   }
 
   @include respond(tab-port) {

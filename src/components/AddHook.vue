@@ -3,10 +3,10 @@
     <div class="hook-container">
       <input
         class="hook-text"
-        v-model="hook"
         ref="inputRef"
-        @input="resizeInput(hook)"
-        @focus="resizeInput(hook)"
+        v-model="hook"
+        @input="resizeInput"
+        @focus="resizeInput"
         placeholder="Hook Name"
       />
       <div class="icons">
@@ -24,7 +24,7 @@
     <button
       type="submit"
       class="modal-button hook-submit"
-      :disabled="text.trim() === '' || hook.trim() === ''"
+      :disabled="submitButtonDisabled"
     >
       Create
     </button>
@@ -43,13 +43,16 @@ export default {
     return {
       hook: "",
       text: "",
-      modalShowing: false,
     };
   },
+  computed: {
+    submitButtonDisabled() {
+      return this.hook.trim() === "" || this.text.trim() === "";
+    },
+  },
   mounted() {
-    this.$nextTick(() => {
-      this.$refs.inputRef.focus();
-    });
+    this.isMounted = true;
+    this.focusInput();
   },
   methods: {
     getUnusedHook() {
@@ -62,46 +65,41 @@ export default {
           return conceptHook.name.toLowerCase() === newHook.toLowerCase();
         })
       );
-
+      
       this.hook = newHook;
-      this.resizeInput(newHook);
+      this.$refs.inputRef.value = newHook;
+      this.resizeInput();
     },
-    toggleModal() {
-      this.modalShowing = !this.modalShowing;
+    focusInput() {
+      this.$nextTick(() => {
+        this.$refs.inputRef.focus();
+      });
     },
-    showModal() {
-      this.toggleModal();
-      this.hookInputText = this.hook;
+    resizeInput() {
+      this.$refs.inputRef.style.width = "auto";
+      this.$refs.inputRef.style.width = this.$refs.inputRef.scrollWidth + "px";
     },
-    hideModal() {
-      this.toggleModal();
-    },
-    handleHookChange() {
-      if (this.hookInputText.trim() === "") return;
-
-      this.hook = this.hookInputText;
-      this.hideModal();
-    },
-    resizeInput(val = this.hook) {
-      const inputRef = this.$refs.inputRef;
-      inputRef.value = val;
-
-      inputRef.style.width = "auto";
-      inputRef.style.width = inputRef.scrollWidth + "px";
+    resizeTextarea() {
+      this.$refs.textareaRef.style.height = "auto";
+      this.$refs.textareaRef.style.height =
+      this.$refs.textareaRef.style.scrollHeight + "px";
     },
     handleSubmit() {
-      if (!this.text) return;
+      if (!this.$refs.inputRef.value || !this.text) return;
 
       this.$store.dispatch("addHookToConcept", {
-        id: this.concept.createdAt,
-        hook: {
-          name: this.hook,
-          text: this.text,
-        },
+        name: this.hook,
+        text: this.text
       });
 
+      this.hook = "";
+      this.$refs.inputRef.value = "";
+
       this.text = "";
-      this.getUnusedHook();
+
+      this.resizeInput();
+      this.resizeTextarea();
+      this.focusInput();
     },
   },
 };
@@ -109,7 +107,7 @@ export default {
 
 <style lang="scss" scoped>
 form {
-  max-width: 100rem;
+  max-width: 90rem;
   width: 100%;
 }
 
@@ -128,8 +126,8 @@ form {
 
   @include respond(tab-land) {
     position: absolute;
-      left: 0;
-      top: 0;
+    left: 0;
+    top: 0;
     transform: translate(-3.3rem, 1px);
   }
 }
@@ -161,6 +159,7 @@ form {
   margin-top: $spacing-small;
   padding-bottom: $spacing-smallest;
   width: max-content;
+  min-width: 25rem;
   max-width: 100%;
 
   @include respond(tab-land) {
@@ -179,14 +178,12 @@ form {
   border: 1px solid $color-grey-darkest;
   color: $color-grey-lightest;
   font-size: $font-size-normal;
-  min-height: 25rem;
   overflow: hidden;
   padding: 1.3rem 1rem;
   width: 100%;
 
   @include respond(tab-land) {
     font-size: $font-size-medium;
-    min-height: 50rem;
     padding: 2rem;
   }
 

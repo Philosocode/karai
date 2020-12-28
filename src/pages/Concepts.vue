@@ -1,5 +1,4 @@
 <template>
-  <Title :title="`Karai - Concepts`" />
   <h1 v-if="!hasConcepts">Click the plus button to add a concept.</h1>
 
   <Filters @search="handleSearchChange" @sort="handleSortChange" />
@@ -17,7 +16,6 @@ import AddButton from "../components/AddButton.vue";
 import AddConcept from "../components/AddConcept.vue";
 import ConceptGrid from "../components/ConceptGrid.vue";
 import Filters from "../components/Filters";
-import Title from "../components/Title";
 
 export default {
   components: {
@@ -25,9 +23,10 @@ export default {
     AddConcept,
     ConceptGrid,
     Filters,
-    Title,
   },
   setup() {
+    document.title = "Karai - Concepts";
+
     const store = useStore();
 
     const modalShowing = ref(false);

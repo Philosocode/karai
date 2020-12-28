@@ -7,6 +7,9 @@ export default {
   setConcepts(state, payload) {
     state.concepts = payload;
   },
+  setCurrConcept(state, payload) {
+    state.currConcept = payload;
+  },
   sortConcepts(state, payload) {
     const { type, isReverse } = payload;
     const order = isReverse ? "asc" : "desc";
@@ -18,63 +21,45 @@ export default {
     state.concepts = sorted;
   },
   changeConceptName(state, payload) {
-    const idx = state.concepts.findIndex((c) => c.createdAt === payload.id);
+    if (!state.currConcept) return;
 
-    if (idx !== -1) state.concepts[idx].name = payload.name;
+    state.currConcept.name = payload;
   },
   addHookToConcept(state, payload) {
-    const idx = state.concepts.findIndex((c) => c.createdAt === payload.id);
+    if (!state.currConcept) return;
 
-    if (idx !== -1) state.concepts[idx].hooks.unshift(payload.hook);
+    state.currConcept.hooks.push(payload);
   },
   setHooks(state, payload) {
-    const conceptIdx = state.concepts.findIndex(
-      (c) => c.createdAt === payload.id
-    );
+    if (!state.currConcept) return;
 
-    if (conceptIdx === -1) return;
-
-    state.concepts[conceptIdx].hooks = payload.hooks;
+    state.currConcept.hooks = payload;
   },
   updateHook(state, payload) {
-    const idx = state.concepts.findIndex((c) => c.createdAt === payload.id);
+    if (!state.currConcept) return;
 
-    if (idx === -1) return;
-
-    const hooks = state.concepts[idx].hooks;
+    const hooks = state.currConcept.hooks;
 
     const hookIdx = hooks.findIndex((h) => h.name === payload.hook);
 
     if (hookIdx === -1) return;
 
     if (payload.newName) hooks[hookIdx].name = payload.newName;
-
     if (payload.newText) hooks[hookIdx].text = payload.newText;
   },
   removeHookFromConcept(state, payload) {
-    const conceptIdx = state.concepts.findIndex(
-      (c) => c.createdAt === payload.id
-    );
+    if (!state.currConcept) return;
 
-    if (conceptIdx === -1) return;
-
-    const concept = state.concepts[conceptIdx];
-
-    const hookIdx = concept.hooks.findIndex((h) => h.name === payload.hook);
+    const hooks = state.currConcept.hooks;
+    const hookIdx = hooks.findIndex((h) => h.name === payload.hook);
 
     if (hookIdx === -1) return;
 
-    concept.hooks.splice(hookIdx, 1);
+    hooks.splice(hookIdx, 1);
   },
   deleteConcept(state, payload) {
     const idx = state.concepts.findIndex((c) => c.createdAt === payload);
 
     if (idx !== -1) state.concepts.splice(idx, 1);
-  },
-  deleteAllConcepts(state) {
-    state.concepts = [];
-  },
-  setError(state, payload) {
-    state.error = payload;
   },
 };

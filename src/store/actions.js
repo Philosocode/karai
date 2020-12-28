@@ -9,11 +9,14 @@ export default {
   setConcepts(context, payload) {
     context.commit("setConcepts", payload);
   },
+  setCurrConcept(context, payload) {
+    context.commit("setCurrConcept", payload);
+  },
   sortConcepts(context, payload) {
     context.commit("sortConcepts", payload);
   },
   changeConceptName(context, payload) {
-    if (payload.name.trim() === "") return;
+    if (payload.trim() === "") return;
     context.commit("changeConceptName", payload);
   },
   deleteConcept(context, payload) {
@@ -31,10 +34,4 @@ export default {
   removeHookFromConcept(context, payload) {
     context.commit("removeHookFromConcept", payload);
   },
-  deleteAllConcepts(context) {
-    context.commit("deleteAllConcepts");
-  },
-  setError(context, payload) {
-    context.commit("setError", payload);
-  }
 };
