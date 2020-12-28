@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: "/",
+  publicPath: "/karai",
   lintOnSave: false,
   css: {
     loaderOptions: {
