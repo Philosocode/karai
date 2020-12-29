@@ -30,7 +30,7 @@ export default {
     const currConcept = concepts.find(c => c.createdAt === Number(this.id));
 
     if (!currConcept) {
-      alert("ERROR: Failed to find concept. Please refresh the page.");
+      alert("ERROR: Failed to find concept.");
       this.$router.push("/");
     } else {
       this.$store.dispatch("setCurrConcept", currConcept);
