@@ -62,19 +62,21 @@ export default {
 dialog {
   background: $color-off-black;
   position: fixed;
-  left: 0%;
-  top: 20vh;
+    left: 10%;
+    top: 20vh;
   border-radius: 2px;
   border: none;
   padding: $spacing-medium 1.5rem;
   overflow: hidden;
+  width: 80%;
   z-index: 100;
-  width: 90%;
 
   @media (min-width: 500px) {
+    left: calc(50% - 20rem);
     width: 40rem;
 
     &.is-long {
+      left: calc(50% - 25rem);
       width: 50rem;
     }
   }
