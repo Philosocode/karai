@@ -62,28 +62,26 @@ export default {
 dialog {
   background: $color-off-black;
   position: fixed;
+    left: 50%;
+  transform: translateX(-50%);
   top: 20vh;
-  left: 0%;
   border-radius: 2px;
   border: none;
   padding: $spacing-medium 1.5rem;
-  margin: 0 auto;
   overflow: hidden;
   z-index: 100;
   width: 90%;
 
-  @include respond(tab-land) {
-    padding: $spacing-medium;
-  }
-
   @media (min-width: 500px) {
-    margin: 0 auto;
     width: 40rem;
 
     &.is-long {
-      left: calc(50% - 25rem);
       width: 50rem;
     }
+  }
+
+  @include respond(tab-land) {
+    padding: $spacing-medium;
   }
 }
 
