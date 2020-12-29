@@ -1,5 +1,5 @@
 <template>
-  <i v-if="shouldRender" class="nav-icon fas fa-trash" @click="toggleModal" />
+  <i v-if="shouldRender" class="nav-icon fas fa-trash" @click="toggleModal" tabindex="0" />
   <Dialog
     :title="`Delete All ${thingToDelete}`"
     :show="modalShowing"
@@ -21,16 +21,15 @@ export default {
   components: {
     Dialog,
   },
-  created() {
-    if (this.$route.name === "Concepts") this.isConceptPage = true;
-  },
   data() {
     return {
       modalShowing: false,
-      isConceptPage: false,
     };
   },
   computed: {
+    isConceptPage() {
+      return this.$route.name === "Concepts";
+    },
     thingToDelete() {
       return this.isConceptPage ? "Concepts" : "Hooks";
     },
@@ -45,7 +44,7 @@ export default {
     },
     shouldRender() {
       // if on Concepts page, show if there are concepts
-      if (this.$route.name === "Concepts") return this.hasConcepts;
+      if (this.isConceptPage) return this.hasConcepts;
 
       // if on Concept detail page, show if there are hooks
       return this.hasHooks;
@@ -58,6 +57,7 @@ export default {
     handleDelete() {
       if (this.isConceptPage) this.$store.dispatch("setConcepts", []);
       else this.$store.dispatch("setHooks", []);
+
       this.toggleModal();
     },
   },

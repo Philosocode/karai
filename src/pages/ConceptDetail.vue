@@ -49,7 +49,7 @@ export default {
 <style lang="scss" scoped>
 .breadcrumbs {
   color: $color-grey;
-  font-size: $font-size-smallest;
+  font-size: $font-size-smaller;
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;

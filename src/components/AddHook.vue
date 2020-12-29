@@ -1,12 +1,12 @@
 <template>
   <form @submit.prevent="handleSubmit">
     <div class="hook-container">
-      <input
+      <textarea
         class="hook-text"
-        ref="inputRef"
+        ref="hookRef"
         v-model="hook"
-        @input="resizeInput"
-        @focus="resizeInput"
+        @input="autosizeTextarea"
+        @focus="autosizeTextarea"
         placeholder="Hook Name"
       />
       <div class="icons">
@@ -52,7 +52,6 @@ export default {
   },
   mounted() {
     this.isMounted = true;
-    this.focusInput();
   },
   methods: {
     getUnusedHook() {
@@ -67,25 +66,19 @@ export default {
       );
       
       this.hook = newHook;
-      this.$refs.inputRef.value = newHook;
-      this.resizeInput();
+      this.$refs.hookRef.value = newHook;
+      this.resizeHookRef();
     },
-    focusInput() {
-      this.$nextTick(() => {
-        this.$refs.inputRef.focus();
-      });
-    },
-    resizeInput() {
-      this.$refs.inputRef.style.width = "auto";
-      this.$refs.inputRef.style.width = this.$refs.inputRef.scrollWidth + "px";
+    resizeHookRef() {
+      this.$refs.hookRef.style.height = "auto";
+      this.$refs.hookRef.style.scrollHeight + "px";
     },
     resizeTextarea() {
       this.$refs.textareaRef.style.height = "auto";
-      this.$refs.textareaRef.style.height =
       this.$refs.textareaRef.style.scrollHeight + "px";
     },
     handleSubmit() {
-      if (!this.$refs.inputRef.value || !this.text) return;
+      if (!this.hook || !this.text) return;
 
       this.$store.dispatch("addHookToConcept", {
         name: this.hook,
@@ -93,13 +86,10 @@ export default {
       });
 
       this.hook = "";
-      this.$refs.inputRef.value = "";
-
       this.text = "";
 
-      this.resizeInput();
+      this.resizeHookRef();
       this.resizeTextarea();
-      this.focusInput();
     },
   },
 };
@@ -157,10 +147,8 @@ form {
   font-weight: 500;
   margin: 0;
   margin-top: $spacing-small;
-  padding-bottom: $spacing-smallest;
-  width: max-content;
-  min-width: 25rem;
-  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
 
   @include respond(tab-land) {
     font-size: $font-size-normal-big;

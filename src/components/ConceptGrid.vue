@@ -11,14 +11,15 @@
     />
   </div>
 
-  <!-- Show if filtering -->
+  <!-- Show if not filtering -->
   <Draggable v-if="canDrag"
     class="grid page-container"
     v-model="allConcepts"
     tag="transition-group"
     :component-data="{ tag: 'div', type: 'transition', name: 'animate-dnd' }"
     item-key="createdAt"
-    :disabled="!canDrag"
+    :delay="300"
+    :delayOnTouchOnly="true"
   >
     <template #item="{ element }">
       <ConceptGridItem

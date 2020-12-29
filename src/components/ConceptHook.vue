@@ -84,7 +84,7 @@ export default {
   margin-top: $spacing-medium;
   padding: 2rem 1.1rem;
   position: relative;
-  width: 100vw;
+  width: 90vw;
   max-width: 100rem;
 
   @include respond(tab-port) {

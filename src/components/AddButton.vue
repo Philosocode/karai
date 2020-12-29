@@ -1,5 +1,5 @@
 <template>
-  <button @click="handleClick">
+  <button @click="handleClick" tabindex="0">
     <i class="fas fa-plus" />
   </button>
 </template>

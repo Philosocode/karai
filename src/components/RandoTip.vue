@@ -3,6 +3,7 @@
     class="nav-icon fas fa-lightbulb"
     :class="modalShowing && 'is-active'"
     @click="toggleModal"
+    tabindex="0"
   />
   <Dialog title="Rando Tip" :show="modalShowing" @close="toggleModal" :long="true">
     <i class="refresh fas fa-redo" @click="refreshHook" />

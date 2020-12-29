@@ -5,6 +5,7 @@ export default {
     state.concepts.unshift(payload);
   },
   setConcepts(state, payload) {
+    console.log("CALLED");
     state.concepts = payload;
   },
   setCurrConcept(state, payload) {
@@ -61,5 +62,5 @@ export default {
     const idx = state.concepts.findIndex((c) => c.createdAt === payload);
 
     if (idx !== -1) state.concepts.splice(idx, 1);
-  },
+  }
 };

@@ -156,7 +156,7 @@ body {
 .nav-icon {
   color: $color-grey-light;
   cursor: pointer;
-  font-size: 2rem;
+  font-size: 2.5rem;
   transition: color 0.2s ease-in-out;
   z-index: 10;
 

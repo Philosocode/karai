@@ -6,6 +6,8 @@
       v-model="conceptHooks"
       tag="transition-group"
       :component-data="{ tag: 'div', name: 'animate-dnd', type: 'transition' }"
+      :delay="300"
+      :delayOnTouchOnly="true"
       item-key="name"
     >
       <template #item="{ element, index }">
@@ -51,10 +53,7 @@ export default {
         return concept.hooks;
       },
       set(updatedHooks) {
-        this.$store.commit("setHooks", {
-          id: this.concept.createdAt,
-          hooks: updatedHooks,
-        });
+        this.$store.commit("setHooks", updatedHooks);
       },
     },
   },

@@ -67,17 +67,17 @@ dialog {
   border-radius: 2px;
   border: none;
   padding: $spacing-medium 1.5rem;
-  margin: 0;
+  margin: 0 auto;
   overflow: hidden;
   z-index: 100;
-  width: 100%;
+  width: 90%;
 
   @include respond(tab-land) {
     padding: $spacing-medium;
   }
 
   @media (min-width: 500px) {
-    left: calc(50% - 20rem);
+    margin: 0 auto;
     width: 40rem;
 
     &.is-long {
