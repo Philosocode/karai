@@ -10,6 +10,8 @@
         type="text"
         v-model="conceptName"
         placeholder="Concept Name"
+        ref="inputRef"
+        @keydown.esc="closeModal"
         required
       />
       <button class="modal-button" :disabled="conceptName.trim() === ''">
@@ -50,6 +52,14 @@ export default {
       this.$router.push("/" + newestConcept.createdAt);
     },
   },
+  watch: {
+    modalShowing() {
+      if (this.modalShowing)
+        this.$nextTick(() => {
+          this.$refs.inputRef.focus();
+        });
+    }
+  }
 };
 </script>
 

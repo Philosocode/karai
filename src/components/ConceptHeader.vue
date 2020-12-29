@@ -7,7 +7,13 @@
   </div>
   <Dialog :show="modalShowing" title="Change Concept Name" @close="toggleModal">
     <form @submit.prevent="handleSubmit">
-      <input class="modal-input" v-model="newName" required />
+      <input
+        class="modal-input"
+        v-model="newName"
+        required
+        ref="inputRef"
+        @keydown.esc="toggleModal"
+      />
       <button class="modal-button" :disabled="newName.trim() === ''">
         Change Name
       </button>
@@ -38,6 +44,14 @@ export default {
       this.toggleModal();
     },
   },
+  watch: {
+    modalShowing() {
+      if (this.modalShowing)
+        this.$nextTick(() => {
+          this.$refs.inputRef.focus()
+        })
+    }
+  }
 };
 </script>
 

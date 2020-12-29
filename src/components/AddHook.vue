@@ -77,6 +77,9 @@ export default {
       this.$refs.textareaRef.style.height = "auto";
       this.$refs.textareaRef.style.scrollHeight + "px";
     },
+    focusHookRef() {
+      this.$refs.hookRef.focus();
+    },
     handleSubmit() {
       if (!this.hook || !this.text) return;
 
@@ -90,6 +93,7 @@ export default {
 
       this.resizeHookRef();
       this.resizeTextarea();
+      this.focusHookRef();
     },
   },
 };
