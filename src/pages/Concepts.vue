@@ -3,23 +3,20 @@
 
   <Filters @search="handleSearchChange" @sort="handleSortChange" />
 
-  <AddConcept :show="modalShowing" :error="error" @close="toggleModal" />
   <ConceptGrid :concepts="showingConcepts" :canDrag="canDrag" />
-  <AddButton @clicked="toggleModal" />
+  <AddConcept :show="modalShowing" :error="error" @close="toggleModal" />
 </template>
 
 <script>
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 
-import AddButton from "../components/AddButton.vue";
 import AddConcept from "../components/AddConcept.vue";
 import ConceptGrid from "../components/ConceptGrid.vue";
 import Filters from "../components/Filters";
 
 export default {
   components: {
-    AddButton,
     AddConcept,
     ConceptGrid,
     Filters,

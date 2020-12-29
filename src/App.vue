@@ -8,7 +8,7 @@
   </div>
 
   <div class="site-content">
-    <router-view />
+    <router-view :key="$route.fullPath" />
   </div>
   <Footer />
 </template>

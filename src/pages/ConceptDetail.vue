@@ -1,26 +1,24 @@
 <template>
   <div class="page-container">
-    <div class="breadcrumbs">
-      <router-link to="/">Home</router-link> / <span>{{ concept.name }}</span>
-    </div>
-
     <ConceptHeader :concept="concept" />
     <AddHook :concept="concept" />
 
     <div class="divider" />
 
     <HookList :concept="concept" />
+    <AddConcept />
   </div>
 </template>
 
 <script>
 import AddHook from "../components/AddHook";
+import AddConcept from "../components/AddConcept.vue";
 import ConceptHeader from "../components/ConceptHeader";
 import HookList from "../components/HookList";
 
 export default {
   name: "ConceptDetail",
-  components: { AddHook, ConceptHeader, HookList },
+  components: { AddConcept, AddHook, ConceptHeader, HookList },
   props: ["id"],
   data() {
     return {
