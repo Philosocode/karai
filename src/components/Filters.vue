@@ -13,6 +13,9 @@
       <button class="modal-button sort-button" @click="handleDateSort">
         {{ dateText }}
       </button>
+      <button class="modal-button sort-button" @click="handleHookCountSort">
+        {{ hookCountText }}
+      </button>
     </div>
   </div>
 </template>
@@ -27,6 +30,7 @@ export default {
       searchText: "",
       isAlphaReverse: false,
       isDateReverse: false,
+      isHookCountReverse: false,
     };
   },
   emits: ["search", "sort"],
@@ -52,7 +56,15 @@ export default {
       });
 
       this.isDateReverse = !this.isDateReverse;
-    }
+    },
+    handleHookCountSort() {
+      this.$emit("sort", {
+        type: "hookCount",
+        isReverse: this.isHookCountReverse,
+      });
+
+      this.isHookCountReverse = !this.isHookCountReverse;
+    },
   },
   computed: {
     alphabeticalText() {
@@ -60,6 +72,9 @@ export default {
     },
     dateText() {
       return this.isDateReverse ? "Oldest" : "Newest";
+    },
+    hookCountText() {
+      return this.isHookCountReverse ? "Least" : "Most";
     },
     hasConcepts() {
       return this.$store.getters.hasConcepts;
@@ -100,14 +115,20 @@ export default {
 
 .sort {
   display: flex;
-  align-items: center;
+    align-items: center;
+    justify-content: space-between;
   margin: 0 auto;
   margin-top: $spacing-small;
+  max-width: 30rem;
+  width: 100%;
+
+  @include respond(tab-land) {
+    max-width: 35rem;
+  }
 }
 
 .sort-button {
   cursor: pointer;
-  margin-left: 1.6rem;
   margin-top: 0 !important;
 }
 </style>

@@ -15,10 +15,19 @@ export default {
     const { type, isReverse } = payload;
     const order = isReverse ? "asc" : "desc";
 
-    let sorted = type === "alphabetical"
-      ? orderBy(state.concepts, ["name"], [order])
-      : orderBy(state.concepts, ["createdAt"], [order]);
+    let sortField;
+    switch (type) {
+      case "alphabetical":
+        sortField = "name";
+        break;
+      case "date":
+        sortField = "createdAt";
+        break;
+      case "hookCount":
+        sortField = (o) => o.hooks.length;
+    }
 
+    let sorted = orderBy(state.concepts, [sortField, "name"], [order]);
     state.concepts = sorted;
   },
   changeConceptName(state, payload) {
@@ -62,5 +71,5 @@ export default {
     const idx = state.concepts.findIndex((c) => c.createdAt === payload);
 
     if (idx !== -1) state.concepts.splice(idx, 1);
-  }
+  },
 };
