@@ -4,13 +4,10 @@
   <Filters @search="handleSearchChange" @sort="handleSortChange" />
 
   <ConceptGrid :concepts="showingConcepts" :canDrag="canDrag" />
-  <AddConcept :show="modalShowing" :error="error" @close="toggleModal" />
+  <AddConcept />
 </template>
 
 <script>
-import { computed, ref } from "vue";
-import { useStore } from "vuex";
-
 import AddConcept from "../components/AddConcept.vue";
 import ConceptGrid from "../components/ConceptGrid.vue";
 import Filters from "../components/Filters";
@@ -21,64 +18,41 @@ export default {
     ConceptGrid,
     Filters,
   },
-  setup() {
-    document.title = "Karai「花蕾」- Concepts";
-
-    const store = useStore();
-
-    const modalShowing = ref(false);
-    const deleteAllModalShowing = ref(false);
-
-    const searchText = ref("");
-
-    const concepts = computed(function () {
-      return store.getters.concepts;
-    });
-
-    const showingConcepts = computed(function () {
-      if (searchText.value.trim() === "") return concepts.value;
-
-      return concepts.value.filter((c) =>
-        c.name.toLowerCase().includes(searchText.value.toLowerCase())
-      );
-    });
-
-    const error = computed(function () {
-      return store.getters.error;
-    });
-
-    const canDrag = computed(function () {
-      return searchText.value.trim() === "";
-    });
-
-    const hasConcepts = computed(function () {
-      return store.getters.hasConcepts;
-    });
-
-    function toggleModal() {
-      modalShowing.value = !modalShowing.value;
-    }
-
-    function handleSearchChange(newVal) {
-      searchText.value = newVal;
-    }
-
-    function handleSortChange(data) {
-      store.dispatch("sortConcepts", data);
-    }
-
+  data() {
     return {
-      canDrag,
-      concepts,
-      deleteAllModalShowing,
-      error,
-      hasConcepts,
-      modalShowing,
-      toggleModal,
-      handleSearchChange,
-      handleSortChange,
-      showingConcepts,
+      modalShowing: false,
+      searchText: "",
     };
+  },
+  computed: {
+    hasConcepts() {
+      return this.$store.getters.hasConcepts;
+    },
+    concepts() {
+      return this.$store.getters.concepts;
+    },
+    showingConcepts() {
+      if (this.searchText.trim() === "") return this.concepts;
+
+      return this.concepts.filter((c) =>
+        c.name.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+    },
+    canDrag() {
+      // can drag when not filtering
+      return this.searchText.trim() === "";
+    },
+  },
+  created() {
+    document.title = "Karai「花蕾」- Concepts";
+  },
+  methods: {
+    handleSearchChange(newVal) {
+      this.searchText = newVal;
+    },
+    handleSortChange(data) {
+      this.$store.dispatch("sortConcepts", data);
+    },
   },
 };
 </script>

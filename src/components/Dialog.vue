@@ -64,10 +64,11 @@ dialog {
   position: fixed;
     left: 10%;
     top: 20vh;
-  border-radius: 2px;
+  border-radius: 3px;
   border: none;
   padding: $spacing-medium 1.5rem;
   overflow: hidden;
+  margin: 0;
   width: 80%;
   z-index: 100;
 

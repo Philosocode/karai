@@ -26,8 +26,6 @@ import Dialog from "./Dialog";
 
 export default {
   name: "AddConcept",
-  props: ["show"],
-  emits: ["close"],
   components: { Dialog },
   data() {
     return {
