@@ -62,8 +62,7 @@ export default {
 dialog {
   background: $color-off-black;
   position: fixed;
-    left: 50%;
-  transform: translateX(-50%);
+  left: 0%;
   top: 20vh;
   border-radius: 2px;
   border: none;
