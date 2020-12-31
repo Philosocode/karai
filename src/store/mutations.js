@@ -13,12 +13,14 @@ export default {
   },
   sortConcepts(state, payload) {
     const { type, isReverse } = payload;
-    const order = isReverse ? "asc" : "desc";
+    let order = isReverse ? "asc" : "desc";
 
     let sortField;
     switch (type) {
       case "alphabetical":
         sortField = "name";
+        // reverse order for name
+        order = isReverse ? "desc" : "asc";
         break;
       case "date":
         sortField = "createdAt";
