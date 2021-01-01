@@ -75,7 +75,6 @@ export default {
   outline: none;
   margin: 0;
   width: 100%;
-  max-width: 50rem;
 
   font-size: $font-size-large;
 
